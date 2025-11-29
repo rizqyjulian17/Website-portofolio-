@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>website Portfolio</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            background: linear-gradient(135deg, #5cbdf5, #4a60ff);
+            overflow-x:hidden;
+            overflow-y:hidden;
+        }
+
+        header{
+            background: rgba(0,0,0,0.6);
+            color:white;
+            padding:18px 30px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            position:sticky;
+            top:0;
+            z-index:100;
+            backdrop-filter: blur(4px);
+        }
+
+        nav a{
+            color:white;
+            margin-left:20px;
+            text-decoration:none;
+            cursor:pointer;
+            font-size:17px;
+            transition:0.3s;
+        }
+
+        nav a:hover{
+            color:#ffea7b;
+        }
+
+        /* SECTION tampil di 1 tempat */
+        .section{
+            position:absolute;
+            top:90px;
+            left:0;
+            width:100%;
+            height:calc(100vh - 150px);
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            opacity:0;
+            transform:scale(0.92);
+            transition:0.4s ease;
+        }
+
+        .show{
+            opacity:1;
+            transform:scale(1);
+        }
+
+        h1, h2{
+            color:white;
+            text-shadow:0 3px 8px rgba(0,0,0,0.4);
+        }
+
+        /* LOVE / HEART ANIMATION */
+        #loveContainer{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100vh;
+            pointer-events:none;
+            overflow:hidden;
+        }
+
+        .love{
+            position:absolute;
+            width:20px;
+            height:20px;
+            background:pink;
+            transform:rotate(45deg);
+            animation:floatUp 4s linear forwards;
+        }
+
+        .love::before, .love::after{
+            content:"";
+            position:absolute;
+            width:20px;
+            height:20px;
+            background:pink;
+            border-radius:50%;
+        }
+
+        .love::before{
+            top:-10px;
+            left:0;
+        }
+
+        .love::after{
+            left:-10px;
+            top:0;
+        }
+
+        @keyframes floatUp {
+            0%{transform:translateY(0) rotate(45deg); opacity:1;}
+            100%{transform:translateY(-120vh) rotate(45deg); opacity:0;}
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            width:70%;
+            border-radius:12px;
+            margin:10px 0;
+            box-shadow:0 5px 12px rgba(0,0,0,0.2);
+        }
+
+        footer{
+            background:#0d0d0d;
+            color:#bbb;
+            text-align:center;
+            padding:20px;
+            width:100%;
+            position:fixed;
+            bottom:0;
+            left:0;
+            border-top:2px solid #333;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>Portfolio rizqy</h2>
+    <nav>
+        <a onclick="showSection('home')">Home</a>
+        <a onclick="showSection('about')">About</a>
+        <a onclick="showSection('skills')">Skills</a>
+        <a onclick="showSection('projects')">Projects</a>
+        <a onclick="showSection('contact')">Contact</a> <!-- DITAMBAH -->
+    </nav>
+</header>
+
+<!-- HOME -->
+<section id="home" class="section show">
+    <div style="position:relative;">
+        <img src="foto.jpg" 
+             style="width:160px; border-radius:50%; border:3px solid white; box-shadow:0 0 10px #000;" />
+    </div>
+    <h1>Welcome to My Portfolio</h1>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+    <h2>About Me</h2>
+    <p style="color:white; max-width:600px;">Saya Rizqy Julian Nugraha, seseorang yang memiliki ketertarikan besar pada dunia teknologi dan pengembangan web. Saya senang membangun tampilan website yang interaktif, rapi, dan mudah digunakan. Bagi saya, setiap proyek adalah kesempatan untuk mengasah kreativitas dan meningkatkan kemampuan. Saya percaya bahwa ide yang sederhana pun bisa menjadi sesuatu yang luar biasa jika dikerjakan dengan konsisten dan penuh semangat.</p>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section">
+    <h2>Skills</h2>
+    <div class="card">HTML, CSS</div>
+    <div class="card">JavaScript</div>
+    <div class="card">Python</div>
+    <div class="card">microsoft excel</div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section">
+    <h2>Projects</h2>
+    <div class="card">Website Portfolio</div>
+    <div class="card">Game Tebak Angka</div>
+    <div class="card">form login</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+    <h2>Contact Me</h2>
+    <p style="color:white;">Email: rizqyjn@gmail.com</p>
+    <p style="color:white;">instagram: @kijulsaputra17</p>
+</section>
+
+<!-- LOVE CONTAINER -->
+<div id="loveContainer"></div>
+
+<!-- FOOTER -->
+<footer>
+    © 2025 Portfolio <b>Rizqy julian</b> — All Rights Reserved
+</footer>
+
+<script>
+    function showSection(id){
+        document.querySelectorAll('.section').forEach(sec => sec.classList.remove('show'));
+        setTimeout(()=>{
+            document.getElementById(id).classList.add('show');
+        },150);
+    }
+
+    // ANIMASI LOVE
+    setInterval(() => {
+        let love = document.createElement('div');
+        love.className = 'love';
+        love.style.left = Math.random() * window.innerWidth + 'px';
+        love.style.bottom = '-20px';
+        document.getElementById('loveContainer').appendChild(love);
+        setTimeout(()=> love.remove(), 4000);
+    }, 400);
+</script>
+
+</body>
+</html>
